@@ -18,7 +18,6 @@ class App extends React.Component {
     return (
       <>
         <Header />
-        <Hero />
         <Switch>
           <Route path="/" component={Articles} exact />
           <Route path="/login" component={Signin} />

@@ -141,6 +141,7 @@ ul a {
 /* Sign In */
 .center {
   text-align: center;
+  margin-top: 3rem;
 }
 input {
     margin-top: 1.2rem;

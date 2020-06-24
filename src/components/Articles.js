@@ -1,6 +1,7 @@
 import React from "react";
 import Tags from "./Tags";
 import uuid from "react-uuid";
+import Hero from "./Hero";
 
 class Articles extends React.Component {
   constructor(props) {
@@ -44,6 +45,8 @@ class Articles extends React.Component {
 
   render() {
     return (
+      <>
+      <Hero />
       <section className="main container">
         <div className="row">
           <article className="articles">
@@ -119,6 +122,7 @@ class Articles extends React.Component {
           <Tags tags={this.state.tags} tagChange={(tag) => this.handleTags(tag)} />
         </div>
       </section>
+      </>
     );
   }
 }
