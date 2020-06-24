@@ -7,10 +7,13 @@ function Articles(props) {
     <section className="main container">
       <div className="row">
         <article className="articles">
-          <div>
-            <h3>Global Feed</h3>
-            <hr />
-          </div>
+          <ul className="tagflex" >
+            <h3 className="globalfeed" onClick={()=> props.handleTags("all")}>Global Feed</h3>
+            {props.filtered !== "all" ? (
+                <h3 className="tagfeed"  onClick={()=>props.handleTags(props.filtered)}>#{props.filtered}</h3>
+            ):""}
+          </ul>
+          <hr />
 
           {props.articles
             ? props.articles.map((data) => {
