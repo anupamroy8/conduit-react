@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "./Header";
-import Hero from "./Hero";
 import Footer from "./Footer";
 import Articles from "./Articles";
 import Signin from "./Signin";

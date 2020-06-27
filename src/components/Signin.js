@@ -1,11 +1,12 @@
 import React from "react";
+import {Link} from "react-router-dom"
 
 function Signin() {
   return (
     <>
       <div className="center ">
         <h1>Sign In</h1>
-        <p>Need an account?</p>
+        <Link to="/register" className="textcolor">Need an account?</Link>
         <form className="signinform formcontainer">
           <input type="text" className="form-control form-control-lg" placeholder="Email" />
           <br />

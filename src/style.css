@@ -8,6 +8,7 @@
 a {
   color: #000000;
   cursor: pointer;
+  text-decoration: none !important;
 }
 
 .hero {
@@ -146,7 +147,9 @@ ul a {
 input {
     margin-top: 1.2rem;
 }
-
+.textcolor{
+  color: #6ab85d;
+}
 /* Footer */
 .footer {
   font-size: 1.5rem;
