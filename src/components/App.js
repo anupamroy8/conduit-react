@@ -4,13 +4,14 @@ import Footer from "./Footer";
 import Articles from "./Articles";
 import Signin from "./Signin";
 import Signup from "./Signup";
+import Error from "./Error";
+
 import { Route, Switch } from "react-router-dom";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {
@@ -21,6 +22,7 @@ class App extends React.Component {
           <Route path="/" component={Articles} exact />
           <Route path="/login" component={Signin} />
           <Route path="/register" component={Signup} />
+          <Route component={Error} />
         </Switch>
         <Footer />
       </>

@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 function Header() {
   return (
@@ -9,9 +9,9 @@ function Header() {
           <Link to="/">conduit</Link>
         </h1>
         <ul>
-          <Link to="/">Home</Link>
-          <Link to="/login">Sign in</Link>
-          <Link to="/register">Sign up</Link>
+          <NavLink to="/" exact>Home</NavLink>
+          <NavLink to="/login" activeClassName="active">Sign in</NavLink>
+          <NavLink to="/register" activeClassName="active">Sign up</NavLink>
         </ul>
       </nav>
     </div>

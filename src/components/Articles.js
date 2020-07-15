@@ -13,11 +13,11 @@ class Articles extends React.Component {
     };
   }
   componentDidMount() {
-    fetch(`https://conduit.productionready.io/api/articles?limit=10&offset=0`)
+    fetch(`https://anupam-conduit-api.herokuapp.com/api/articles`)
       .then((res) => res.json())
-      .then((data) => this.setState({ articles: data.articles }))
+      .then((data) => this.setState({ articles: data.articleList }))
       .catch((err) => console.log(err));
-    fetch(`https://conduit.productionready.io/api/tags`)
+    fetch(`https://anupam-conduit-api.herokuapp.com/api/tags`)
       .then((res) => res.json())
       .then((data) => this.setState({ tags: data.tags }))
       .catch((err) => console.log(err));
@@ -25,7 +25,7 @@ class Articles extends React.Component {
   handleTags = (tagName) => {
     console.log(tagName);
     if (tagName === "all") {
-      fetch(`https://conduit.productionready.io/api/articles?limit=10&offset=0`)
+      fetch(`https://anupam-conduit-api.herokuapp.com/api/articles`)
         .then((res) => res.json())
         .then((data) =>
           this.setState({ articles: data.articles, filtered: tagName })
@@ -33,7 +33,7 @@ class Articles extends React.Component {
         .catch((err) => console.log(err));
     } else {
       fetch(
-        `https://conduit.productionready.io/api/articles?tag=${tagName}&limit=10&offset=0`
+        `https://anupam-conduit-api.herokuapp.com/api/articles`
       )
         .then((res) => res.json())
         .then((data) =>
