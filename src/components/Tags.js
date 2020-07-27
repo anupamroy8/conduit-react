@@ -1,5 +1,5 @@
 import React from "react";
-import uuid from "react-uuid"
+import uuid from "react-uuid";
 
 function Tags(props) {
   return (
@@ -10,7 +10,11 @@ function Tags(props) {
           {props.tags
             ? props.tags.map((tag) => {
                 return (
-                  <a  key={uuid()} className="tag" onClick={()=>props.tagChange(tag)}>
+                  <a
+                    key={uuid()}
+                    className="tag"
+                    onClick={() => props.tagChange(tag)}
+                  >
                     {tag}
                   </a>
                 );

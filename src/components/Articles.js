@@ -13,11 +13,11 @@ class Articles extends React.Component {
     };
   }
   componentDidMount() {
-    fetch(`https://anupam-conduit-api.herokuapp.com/api/articles`)
+    fetch(`https://conduit.productionready.io/api/articles?limit=10&offset=0`)
       .then((res) => res.json())
-      .then((data) => this.setState({ articles: data.articleList }))
+      .then((data) => this.setState({ articles: data.articles }))
       .catch((err) => console.log(err));
-    fetch(`https://anupam-conduit-api.herokuapp.com/api/tags`)
+    fetch(`https://conduit.productionready.io/api/tags`)
       .then((res) => res.json())
       .then((data) => this.setState({ tags: data.tags }))
       .catch((err) => console.log(err));
@@ -25,7 +25,7 @@ class Articles extends React.Component {
   handleTags = (tagName) => {
     console.log(tagName);
     if (tagName === "all") {
-      fetch(`https://anupam-conduit-api.herokuapp.com/api/articles`)
+      fetch(`https://conduit.productionready.io/api/articles?limit=10&offset=0`)
         .then((res) => res.json())
         .then((data) =>
           this.setState({ articles: data.articles, filtered: tagName })
@@ -33,7 +33,7 @@ class Articles extends React.Component {
         .catch((err) => console.log(err));
     } else {
       fetch(
-        `https://anupam-conduit-api.herokuapp.com/api/articles`
+        `https://conduit.productionready.io/api/articles?tag=${tagName}&limit=10&offset=0`
       )
         .then((res) => res.json())
         .then((data) =>
@@ -46,82 +46,88 @@ class Articles extends React.Component {
   render() {
     return (
       <>
-      <Hero />
-      <section className="main container">
-        <div className="row">
-          <article className="articles">
-            <ul className="tagflex">
-              <h3
-                className="globalfeed"
-                onClick={() => this.handleTags("all")}
-              >
-                Global Feed
-              </h3>
-              {this.state.filtered !== "all" ? (
+        <Hero />
+        <section className="main container">
+          <div className="row">
+            <article className="articles">
+              <ul className="tagflex">
                 <h3
-                  className="tagfeed"
-                  onClick={() => this.handleTags(this.state.filtered)}
+                  className="globalfeed"
+                  onClick={() => this.handleTags("all")}
                 >
-                  #{this.state.filtered}
+                  Global Feed
                 </h3>
-              ) : (
-                ""
-              )}
-            </ul>
-            <hr />
+                {this.state.filtered !== "all" ? (
+                  <h3
+                    className="tagfeed"
+                    onClick={() => this.handleTags(this.state.filtered)}
+                  >
+                    #{this.state.filtered}
+                  </h3>
+                ) : (
+                  ""
+                )}
+              </ul>
+              <hr />
 
-            {this.state.articles
-              ? this.state.articles.map((data) => {
-                  return (
-                    <div key={uuid()}>
-                      <div className="article-meta">
-                        <div className="info">
-                          <a className="imgresponsive">
-                            <img
-                              className="imgauthor"
-                              src={data.author.image}
-                              alt={data.author.username}
-                            />
-                          </a>
-                          <div className="margin">
-                            <a>
-                              <div>{data.author.username}</div>
+              {this.state.articles
+                ? this.state.articles.map((data) => {
+                    return (
+                      <div key={uuid()}>
+                        <div className="article-meta">
+                          <div className="info">
+                            <a className="imgresponsive">
+                              <img
+                                className="imgauthor"
+                                src={data.author.image}
+                                alt={data.author.username}
+                              />
                             </a>
-                            <div>{data.updatedAt}</div>
+                            <div className="margin">
+                              <a>
+                                <div>{data.author.username}</div>
+                              </a>
+                              <div>{data.updatedAt}</div>
+                            </div>
+                          </div>
+                          <div className="likes">
+                            <button className="likeBtn btn btn-light">
+                              {" "}
+                              ❤️ {data.favoritesCount}
+                            </button>
                           </div>
                         </div>
-                        <div className="likes">
-                          <button>Likes {data.favoritesCount}</button>
+                        <div className="article-preview">
+                          <h1>
+                            <a href="#">{data.title}</a>{" "}
+                          </h1>
+                          <p>{data.body}</p>
+                          <span>Readmore...</span>
+                          <ul className="taglist">
+                            {data.tagList
+                              ? data.tagList.map((tag) => {
+                                  return (
+                                    <a href="#" key={uuid()} className="tag">
+                                      {tag}
+                                    </a>
+                                  );
+                                })
+                              : ""}
+                          </ul>
+                          <hr />
                         </div>
                       </div>
-                      <div className="article-preview">
-                        <h1>
-                          <a href="#">{data.title}</a>{" "}
-                        </h1>
-                        <p>{data.body}</p>
-                        <span>Readmore...</span>
-                        <ul className="taglist">
-                          {data.tagList
-                            ? data.tagList.map((tag) => {
-                                return (
-                                  <a href="#" key={uuid()} className="tag">
-                                    {tag}
-                                  </a>
-                                );
-                              })
-                            : ""}
-                        </ul>
-                        <hr />
-                      </div>
-                    </div>
-                  );
-                })
-              : ""}
-          </article>
+                    );
+                  })
+                : ""}
+            </article>
 
-          <Tags tags={this.state.tags} tagChange={(tag) => this.handleTags(tag)} />
-        </div>
-      </section>
+            <Tags
+              tags={this.state.tags}
+              tagChange={(tag) => this.handleTags(tag)}
+            />
+          </div>
+        </section>
       </>
     );
   }

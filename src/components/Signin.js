@@ -1,28 +1,6 @@
-// import React from "react";
-// import {Link} from "react-router-dom"
-
-// function Signin() {
-//   return (
-//     <>
-//       <div className="center ">
-//         <h1>Sign In</h1>
-//         <Link to="/register" className="textcolor">Need an account?</Link>
-//         <form className="signinform formcontainer">
-//           <input type="text" className="form-control form-control-lg" placeholder="Email" />
-//           <br />
-//           <input type="text" className="form-control form-control-lg" placeholder="Password" />
-//           <br />
-//           <input className="btn btn-success" type="submit" value="Sign In" />
-//         </form>
-//       </div>
-//     </>
-//   );
-// }
-
-// export default Signin;
-
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -37,9 +15,6 @@ class SignIn extends React.Component {
   handleInput = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
-  updateLoggedIn = (status) => {
-    this.setState({ isLoggedIn: status });
-  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -50,18 +25,17 @@ class SignIn extends React.Component {
       body: JSON.stringify({ user: this.state }),
     })
       .then((res) => {
-        // console.log(res, 'inside')
         if (res.status === 200) {
           this.props.history.push("/");
-          this.updateLoggedIn(true);
-          return res.json();
+          this.props.updateLoggedIn(true);
         } else {
           this.setState({ error: "Something went wrong!" });
         }
+        return res.json();
       })
-      .then((data) => {
-        console.log(data, 'inside data')
-        // user && localStorage.setItem("authToken", user.token);
+      .then(({ user }) => {
+        // console.log(user, "inside data");
+        user && localStorage.setItem("authToken", user.token);
       });
   };
 
@@ -70,36 +44,37 @@ class SignIn extends React.Component {
 
     return (
       <>
-        <div className="center ">
+        <div className="center signinform formcontainer">
           <h1>Sign In</h1>
           <Link to="/register" className="textcolor">
             Need an account?
           </Link>
           {/* <form className="signinform formcontainer" onClick={this.handleSubmit}> */}
-            <input
-              type="text"
-              onChange={this.handleInput}
-              name="email"
-              className="form-control form-control-lg"
-              placeholder="Email"
-              value={email}
-            />
-            <br />
-            <input
-              type="text"
-              name="password"
-              onChange={this.handleInput}
-              className="form-control form-control-lg"
-              placeholder="Password"
-              value={password}
-            />
-            <br />
-            <input
-              className="btn btn-success"
-              type="submit"
-              value="Sign In"
-              onClick={this.handleSubmit}
-            />
+          <input
+            type="text"
+            onChange={this.handleInput}
+            name="email"
+            className="form-control form-control-lg"
+            placeholder="Email"
+            value={email}
+          />
+          <br />
+          <input
+            type="text"
+            name="password"
+            onChange={this.handleInput}
+            className="form-control form-control-lg"
+            placeholder="Password"
+            value={password}
+          />
+          <br />
+          <p className="bg-warning">{error && error}</p>
+          <input
+            className="btn btn-success"
+            type="submit"
+            value="Sign In"
+            onClick={this.handleSubmit}
+          />
           {/* </form> */}
         </div>
       </>

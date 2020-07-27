@@ -22,15 +22,17 @@ class Signup extends Component {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({user: this.state})
-    }).then(res => {
-      if(res.status === 200) {
-        this.props.history.push("/")
+      body: JSON.stringify({ user: this.state }),
+    }).then((res) => {
+      if (res.status === 200) {
+        this.props.history.push("/");
       }
-    })
-  }
+    });
+  };
 
   render() {
+    let { email, password, username } = this.state;
+
     return (
       <>
         <div className="center">
@@ -45,6 +47,7 @@ class Signup extends Component {
               className="form-control form-control-lg"
               placeholder="Username"
               onChange={this.handleInput}
+              value={username}
             />
             <br />
             <input
@@ -53,6 +56,7 @@ class Signup extends Component {
               className="form-control form-control-lg"
               placeholder="Email"
               onChange={this.handleInput}
+              value={email}
             />
             <br />
             <input
@@ -61,9 +65,15 @@ class Signup extends Component {
               className="form-control form-control-lg"
               placeholder="Password"
               onChange={this.handleInput}
+              value={password}
             />
             <br />
-            <input onClick={this.handleSubmit} className="btn btn-success" type="submit" value="Sign In" />
+            <input
+              onClick={this.handleSubmit}
+              className="btn btn-success"
+              type="submit"
+              value="Sign In"
+            />
           </form>
         </div>
       </>
